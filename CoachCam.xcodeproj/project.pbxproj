@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		DE41DDC21CD9A26C00976B2D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DE41DDC11CD9A26C00976B2D /* main.cpp */; };
+		DE41DDC91CD9A3E100976B2D /* libopencv_core.3.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DE41DDC81CD9A3E000976B2D /* libopencv_core.3.1.0.dylib */; };
+		DE41DDCB1CD9A3F700976B2D /* libopencv_highgui.3.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DE41DDCA1CD9A3F700976B2D /* libopencv_highgui.3.1.0.dylib */; };
+		DE41DDCD1CD9A42E00976B2D /* libopencv_imgproc.3.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DE41DDCC1CD9A42E00976B2D /* libopencv_imgproc.3.1.0.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +28,9 @@
 /* Begin PBXFileReference section */
 		DE41DDBE1CD9A26A00976B2D /* CoachCam */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CoachCam; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE41DDC11CD9A26C00976B2D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		DE41DDC81CD9A3E000976B2D /* libopencv_core.3.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_core.3.1.0.dylib; sourceTree = "<group>"; };
+		DE41DDCA1CD9A3F700976B2D /* libopencv_highgui.3.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_highgui.3.1.0.dylib; sourceTree = "<group>"; };
+		DE41DDCC1CD9A42E00976B2D /* libopencv_imgproc.3.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libopencv_imgproc.3.1.0.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +38,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE41DDC91CD9A3E100976B2D /* libopencv_core.3.1.0.dylib in Frameworks */,
+				DE41DDCB1CD9A3F700976B2D /* libopencv_highgui.3.1.0.dylib in Frameworks */,
+				DE41DDCD1CD9A42E00976B2D /* libopencv_imgproc.3.1.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +50,9 @@
 		DE41DDB51CD9A26700976B2D = {
 			isa = PBXGroup;
 			children = (
+				DE41DDCC1CD9A42E00976B2D /* libopencv_imgproc.3.1.0.dylib */,
+				DE41DDCA1CD9A3F700976B2D /* libopencv_highgui.3.1.0.dylib */,
+				DE41DDC81CD9A3E000976B2D /* libopencv_core.3.1.0.dylib */,
 				DE41DDC01CD9A26A00976B2D /* CoachCam */,
 				DE41DDBF1CD9A26A00976B2D /* Products */,
 			);
@@ -128,7 +140,7 @@
 		DE41DDC31CD9A26D00976B2D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -171,7 +183,7 @@
 		DE41DDC41CD9A26D00976B2D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -207,6 +219,31 @@
 		DE41DDC61CD9A26D00976B2D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = /usr/local/lib;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/amrutakulkarni/Desktop/opencv-3.1.0-new/build/lib",
+					"$(PROJECT_DIR)",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lopencv_calib3d",
+					"-lopencv_core",
+					"-lopencv_features2d",
+					"-lopencv_flann",
+					"-lopencv_highgui",
+					"-lopencv_imgcodecs",
+					"-lopencv_imgproc",
+					"-lopencv_ml",
+					"-lopencv_objdetect",
+					"-lopencv_photo",
+					"-lopencv_shape",
+					"-lopencv_stitching",
+					"-lopencv_superres",
+					"-lopencv_ts",
+					"-lopencv_video",
+					"-lopencv_videoio",
+					"-lopencv_videostab",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -214,6 +251,31 @@
 		DE41DDC71CD9A26D00976B2D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = /usr/local/lib;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/amrutakulkarni/Desktop/opencv-3.1.0-new/build/lib",
+					"$(PROJECT_DIR)",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lopencv_calib3d",
+					"-lopencv_core",
+					"-lopencv_features2d",
+					"-lopencv_flann",
+					"-lopencv_highgui",
+					"-lopencv_imgcodecs",
+					"-lopencv_imgproc",
+					"-lopencv_ml",
+					"-lopencv_objdetect",
+					"-lopencv_photo",
+					"-lopencv_shape",
+					"-lopencv_stitching",
+					"-lopencv_superres",
+					"-lopencv_ts",
+					"-lopencv_video",
+					"-lopencv_videoio",
+					"-lopencv_videostab",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
