@@ -1,17 +1,14 @@
 #include<iostream>
 #include"opencv2/highgui/highgui.hpp"
 #include"opencv2/imgproc/imgproc.hpp"
-#include<iostream>
-#include"opencv2/highgui/highgui.hpp"
-#include"opencv2/imgproc/imgproc.hpp"
 #include"opencv2/core/core.hpp"
 
 using namespace std;
 using namespace cv;
 
 //Initialize threshold level and mask size
-const static int THRESHOLD = 18;
-const static int MASK = 37;
+const static int THRESHOLD = 4;
+const static int MASK = 27;
 //Initialize the player positions
 int player_1[2] = {0,0};
 int player_2[2] = {0,0};
@@ -47,7 +44,7 @@ void searchForMovement(Mat thresholdImage, Mat &cameraFeed)
     if(contours.size()>0)objectDetected=true;
     else objectDetected = false;
     if(objectDetected)
-    {   // retain the largest and the second largest contours
+    {   // retain the 4 largest contours
         int largest = contours.size()-1;
         boundingRectangle_1 = boundingRect(contours[largest]);
         int xpos = boundingRectangle_1.x+boundingRectangle_1.width/2;
@@ -96,36 +93,60 @@ void searchForMovement(Mat thresholdImage, Mat &cameraFeed)
     int y4 = player_4[1];
     
     //display a rectangle with cross hair around object 1
+    //Check if the dimensions are large enough so as to avoid false positives
+    if(boundingRectangle_1.area()>125 &&
+       boundingRectangle_1.width > 30 &&
+       boundingRectangle_1.height > 30)
+    {
     rectangle(cameraFeed, boundingRectangle_1, Scalar(255,0,0),1,8,0);
     line(cameraFeed,Point(x,y),Point(x,y-5),Scalar(0,255,0),1);
     line(cameraFeed,Point(x,y),Point(x,y+5),Scalar(0,255,0),1);
     line(cameraFeed,Point(x,y),Point(x-5,y),Scalar(0,255,0),1);
     line(cameraFeed,Point(x,y),Point(x+5,y),Scalar(0,255,0),1);
-    putText(cameraFeed,"Tracking player 1 at (" + intToString(x)+","+intToString(y)+")",Point(40,15),1,1,Scalar(0,0,255),2);
+    }
+    putText(cameraFeed,"Tracking player 1 at (" + intToString(x)+","+intToString(y)+")",Point(40,15),1,1,Scalar(0,0,255),1);
     
     //display a rectangle with cross hair around object 2
+    //Check if the dimensions are large enough so as to avoid false positives
+    if(boundingRectangle_2.area()>125 &&
+       boundingRectangle_2.width > 30 &&
+       boundingRectangle_2.height > 30)
+    {
     rectangle(cameraFeed, boundingRectangle_2, Scalar(255,0,0),1,8,0);
     line(cameraFeed,Point(x2,y2),Point(x2,y2-5),Scalar(0,255,0),1);
     line(cameraFeed,Point(x2,y2),Point(x2,y2+5),Scalar(0,255,0),1);
     line(cameraFeed,Point(x2,y2),Point(x2-5,y2),Scalar(0,255,0),1);
     line(cameraFeed,Point(x2,y2),Point(x2+5,y2),Scalar(0,255,0),1);
-    putText(cameraFeed,"Tracking player 2 at (" + intToString(x2)+","+intToString(y2)+")",Point(40,40),1,1,Scalar(0,0,255),2);
+    }
+    putText(cameraFeed,"Tracking player 2 at (" + intToString(x2)+","+intToString(y2)+")",Point(40,40),1,1,Scalar(0,0,255),1);
     
-    //display a rectangle with cross hair around object 2
+    //display a rectangle with cross hair around object 3
+    //Check if the dimensions are large enough so as to avoid false positives
+    if(boundingRectangle_3.area()>125 &&
+       boundingRectangle_3.width > 30 &&
+       boundingRectangle_3.height > 30)
+    {
     rectangle(cameraFeed, boundingRectangle_3, Scalar(255,0,0),1,8,0);
     line(cameraFeed,Point(x3,y3),Point(x3,y3-5),Scalar(0,255,0),1);
     line(cameraFeed,Point(x3,y3),Point(x3,y3+5),Scalar(0,255,0),1);
     line(cameraFeed,Point(x3,y3),Point(x3-5,y3),Scalar(0,255,0),1);
     line(cameraFeed,Point(x3,y3),Point(x3+5,y3),Scalar(0,255,0),1);
-    putText(cameraFeed,"Tracking player 3 at (" + intToString(x3)+","+intToString(y3)+")",Point(350,15),1,1,Scalar(0,0,255),2);
+    }
+    putText(cameraFeed,"Tracking player 3 at (" + intToString(x3)+","+intToString(y3)+")",Point(350,15),1,1,Scalar(0,0,255),1);
     
-    //display a rectangle with cross hair around object 2
+    //display a rectangle with cross hair around object 4
+    //Check if the dimensions are large enough so as to avoid false positives
+    if(boundingRectangle_4.area()>125 &&
+       boundingRectangle_4.width > 30 &&
+       boundingRectangle_4.height > 30)
+    {
     rectangle(cameraFeed, boundingRectangle_4, Scalar(255,0,0),1,8,0);
     line(cameraFeed,Point(x4,y4),Point(x4,y4-5),Scalar(0,255,0),1);
     line(cameraFeed,Point(x4,y4),Point(x4,y4+5),Scalar(0,255,0),1);
     line(cameraFeed,Point(x4,y4),Point(x4-5,y4),Scalar(0,255,0),1);
     line(cameraFeed,Point(x4,y4),Point(x4+5,y4),Scalar(0,255,0),1);
-    putText(cameraFeed,"Tracking player 4 at (" + intToString(x4)+","+intToString(y4)+")",Point(350,40),1,1,Scalar(0,0,255),2);
+    }
+    putText(cameraFeed,"Tracking player 4 at (" + intToString(x4)+","+intToString(y4)+")",Point(350,40),1,1,Scalar(0,0,255),1);
     
 }
 int main()
@@ -156,19 +177,25 @@ int main()
             //read first frame
             capture.read(frame1);
             //convert frame1 to gray scale for frame differencing
-            cv::cvtColor(frame1, grayImage1, COLOR_BGR2GRAY);
+            cvtColor(frame1, grayImage1, COLOR_BGR2GRAY);
             //copy second frame
             capture.read(frame2);
             //convert frame2 to gray scale for frame differencing
-            cv::cvtColor(frame2, grayImage2, COLOR_BGR2GRAY);
+            cvtColor(frame2, grayImage2, COLOR_BGR2GRAY);
             //perform frame differencing with the sequential images which will output an intensity image
             differenceImage = abs(grayImage1 - grayImage2);
+            //use gaussian blur() to smooth the image and remove noise
+            GaussianBlur(differenceImage, differenceImage, Size(MASK, MASK), 0);
             //threshold intensity image at a given threshold value
-            cv::threshold(differenceImage, thresholdImage, THRESHOLD, 255, THRESH_BINARY);
-            //use blur() to smooth the image and remove noise
-            cv::blur(thresholdImage, thresholdImage, cv::Size(MASK,MASK));
-            //threshold again to obtain binary image from blur output
-            cv::threshold(thresholdImage, thresholdImage, THRESHOLD, 255, THRESH_BINARY);
+            threshold(differenceImage, thresholdImage, THRESHOLD, 255, THRESH_BINARY);
+            //Perform morphological operations by defining specific structuring elements
+            Mat structuringElement7x7 = getStructuringElement(MORPH_RECT, Size(7, 7));
+            Mat structuringElement9x9 = getStructuringElement(MORPH_RECT, Size(9, 9));
+            
+            dilate(thresholdImage, thresholdImage, structuringElement9x9);
+            erode(thresholdImage, thresholdImage, structuringElement9x9);
+            dilate(thresholdImage, thresholdImage, structuringElement7x7);
+            
             //if tracking enabled, search for contours in our thresholded image
             if(trackingEnabled)
             {
@@ -176,16 +203,11 @@ int main()
             }
             //show the captured frame
             imshow("Frame1",frame1);
-            //the 10ms delay is necessary for proper operation of this program
+            //add 10ms delay
             switch(waitKey(10))
             {
                 case 27: //'esc' key has been pressed, exit program.
                     return 0;
-                case 116: //'t' has been pressed. this will toggle tracking
-                    trackingEnabled = !trackingEnabled;
-                    if(trackingEnabled == false) cout<<"Tracking disabled."<<endl;
-                    else cout<<"Tracking enabled."<<endl;
-                    break;
             }
         }
         //release the capture before re-opening and looping again.
